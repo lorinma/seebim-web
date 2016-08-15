@@ -7,7 +7,11 @@ declare var Auth0Lock: any;
 @Injectable()
 export class AuthService {
   // Configure Auth0
-  lock = new Auth0Lock('eT9pcxAJablpFBJe69gaRfMeGgJ0UNqy', 'lingma.auth0.com', {});
+  lock = new Auth0Lock('eT9pcxAJablpFBJe69gaRfMeGgJ0UNqy', 'lingma.auth0.com', {
+    languageDictionary: {
+      title: "SeeBIM"
+    }
+  });
   //Store profile object in auth class
   userProfile: Object;
 
@@ -17,6 +21,7 @@ export class AuthService {
 
     // Add callback for lock `authenticated` event
     this.lock.on("authenticated", (authResult) => {
+      console.log(authResult);
       localStorage.setItem('id_token', authResult.idToken);
       // Fetch profile information
       this.lock.getProfile(authResult.idToken, (error, profile) => {

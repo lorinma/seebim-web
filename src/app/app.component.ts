@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,15 @@ import {AuthService} from "./auth.service";
 })
 export class AppComponent implements OnInit{
   title = 'SeeBIM';
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
 
   }
   ngOnInit(){
-    // if(!this.auth.authenticated()){
-    //   this.auth.login();
-    // }
+    if(!this.auth.authenticated()){
+      this.router.navigate(['login'])
+    }
+    if(this.auth.authenticated()){
+      this.router.navigate(['dashboard'])
+    }
   }
 }
