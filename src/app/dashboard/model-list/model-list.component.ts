@@ -77,11 +77,21 @@ export class ModelListComponent implements AfterViewInit {
     }
   }
 
-  private getFiles() {
+  getFiles() {
     this._service.getFiles(this.user_id).subscribe(
       res=>{
         this.files=res;
-        console.log(res)
+      },
+      error => this.errorMessage = <any>error
+    )
+  }
+
+  deleteFile(file:File) {
+    let _id=file._id;
+    let inx = this.files.indexOf(file);
+    this.files.splice(inx,1);
+    this._service.deleteFile(_id).subscribe(
+      res=>{
       },
       error => this.errorMessage = <any>error
     )

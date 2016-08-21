@@ -26,7 +26,7 @@ export class FileService {
       .map(this.fileData)
       .catch(this.handleError);
   }
-  private fileData(res: Response) {
+  fileData(res: Response) {
     let item = res.json();
     return {
       _id:item['_id'],
@@ -39,7 +39,7 @@ export class FileService {
       .map(this.filesData)
       .catch(this.handleError);
   }
-  private filesData(res: Response) {
+  filesData(res: Response) {
     let items = res.json()['_items'];
     return items.map(
       item=>{
@@ -51,5 +51,11 @@ export class FileService {
         return file
       }
     );
+  }
+  //this endpoint is used for easy patch the document
+  deleteFile(_id: string) {
+    return this._http.get(this.restfulAPI+'/fileRemove/'+_id)
+      .map(this.fileData)
+      .catch(this.handleError);
   }
 }
