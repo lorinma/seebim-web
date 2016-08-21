@@ -6,7 +6,7 @@ const appRoutes: Routes = [
   { path: '', component: AppComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  // { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' }
 ];
 
 export const appRoutingProviders: any[] = [

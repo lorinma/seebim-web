@@ -1,3 +1,20 @@
-<p>
-  dashboard works!
-</p>
+<md-sidenav-layout fullscreen>
+<md-sidenav #sidenav>
+  <md-nav-list>
+    <a md-list-item *ngFor="let sideitem of sidebars" [routerLink]="sideitem.route" (click)="sidenav.close()">
+      <md-icon md-list-icon>{{sideitem.icon}}</md-icon>
+      <span md-line>{{sideitem.name}}</span>
+      <span md-line class="secondary">{{sideitem.description}}</span>
+      </a>
+  </md-nav-list>
+</md-sidenav>
+  <md-toolbar color="primary">
+    <button md-icon-button (click)="sidenav.open()" [disableRipple]="true">
+      <md-icon>menu</md-icon>
+    </button>
+    <span>{{title}}</span>
+    <img src={{vc_img}} height="60" align="right">
+    <span class="name">Hello, {{user.name}}</span>
+    <button class="logout" md-raised-button color="warn" (click)="logout()" align="end"> Logout </button>
+  </md-toolbar>
+</md-sidenav-layout>

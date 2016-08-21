@@ -14,11 +14,12 @@ export class AppComponent implements OnInit{
 
   }
   ngOnInit(){
-    if(!this.auth.authenticated()){
-      this.router.navigate(['login'])
-    }
-    if(this.auth.authenticated()){
-      this.router.navigate(['dashboard'])
-    }
+    // if(!this.auth.authenticated()){
+    //   this.router.navigate(['login'])
+    // }
+    // if(this.auth.authenticated()){
+    //   this.router.navigate(['dashboard'])
+    // }
+    this.router.navigate(['dashboard'])
   }
 }

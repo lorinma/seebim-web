@@ -10,7 +10,14 @@ export class AuthService {
   lock = new Auth0Lock('eT9pcxAJablpFBJe69gaRfMeGgJ0UNqy', 'lingma.auth0.com', {
     languageDictionary: {
       title: "SeeBIM"
-    }
+    },
+    closable: false,
+    // auth: {
+    //   redirect: true,
+      // responseType: "token",
+      // redirectUrl: "http://localhost:4200/dashboard"
+    // }
+    // callbackURL: 'http://localhost:4200/login'
   });
   //Store profile object in auth class
   userProfile: Object;
@@ -18,7 +25,6 @@ export class AuthService {
   constructor() {
     // Set userProfile attribute of already saved profile
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
-
     // Add callback for lock `authenticated` event
     this.lock.on("authenticated", (authResult) => {
       console.log(authResult);
