@@ -27,11 +27,29 @@ export class FileService {
       .catch(this.handleError);
   }
   private fileData(res: Response) {
-    let data = res.json();
+    let item = res.json();
     return {
-      _id:data['_id'],
-      TrimbleVersionID:data['TrimbleVersionID'],
-      ThumbnailUrl:data['ThumbnailUrl'],
+      _id:item['_id'],
+      TrimbleVersionID:item['TrimbleVersionID'],
+      ThumbnailUrl:item['ThumbnailUrl'],
     }
+  }
+  getFiles(UserID: string) : Observable<File[]>  {
+    return this._http.get(this.restfulAPI+'/file?where={"UserID":"'+UserID+'"}')
+      .map(this.filesData)
+      .catch(this.handleError);
+  }
+  private filesData(res: Response) {
+    let items = res.json()['_items'];
+    return items.map(
+      item=>{
+        let file={
+          _id: item["_id"],
+          TrimbleVersionID:item['TrimbleVersionID'],
+          ThumbnailUrl:item['ThumbnailUrl'],
+        };
+        return file
+      }
+    );
   }
 }

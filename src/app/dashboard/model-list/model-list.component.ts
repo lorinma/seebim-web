@@ -50,12 +50,14 @@ export class ModelListComponent implements AfterViewInit {
       // see File types below. By default, all extensions are allowed.
       extensions: ['.ifc']
     };
+    this.getFiles()
   }
 
   ngAfterViewInit(){
     let but=Dropbox.createChooseButton(this.options);
     jQuery(this.el.nativeElement).find('#dropbox-container').append(but);
     jQuery(this.el.nativeElement).find('#dropbox-container').append('<a id="_url"></a>');
+
   }
 
   addFile(){
@@ -73,5 +75,15 @@ export class ModelListComponent implements AfterViewInit {
           error => this.errorMessage = <any>error
         );
     }
+  }
+
+  private getFiles() {
+    this._service.getFiles(this.user_id).subscribe(
+      res=>{
+        this.files=res;
+        console.log(res)
+      },
+      error => this.errorMessage = <any>error
+    )
   }
 }

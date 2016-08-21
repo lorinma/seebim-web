@@ -9,3 +9,14 @@
     <button md-raised-button color="accent" (click)="addFile()">Upload the IFC file</button>
   </md-card-actions>
 </md-card>
+
+<div class="card-container">
+  <md-card *ngFor="let file of files">
+    <img md-card-image *ngIf="file.ThumbnailUrl" [src]="file.ThumbnailUrl">
+    <img md-card-image *ngIf="!file.ThumbnailUrl" src='http://sk.uploads.im/t/asbSP.jpg'>
+    <md-card-actions align="end">
+      <button md-button color="primary" (click)="checkFile(file.TrimbleVersionID)">View Model</button>
+      <button md-button color="primary" (click)="deleteFile(file._id)">Delete Model</button>
+    </md-card-actions>
+  </md-card>
+</div>
