@@ -1,3 +1,11 @@
-<p>
-  model-list works!
-</p>
+<md-card>
+  <md-card-title>Add a new model</md-card-title>
+  <md-card-content>
+    <form>
+      <div id='dropbox-container'></div>
+    </form>
+  </md-card-content>
+  <md-card-actions align="end">
+    <button md-raised-button color="accent" (click)="addFile()">Upload the IFC file</button>
+  </md-card-actions>
+</md-card>
