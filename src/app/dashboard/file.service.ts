@@ -36,7 +36,7 @@ export class FileService {
     }
   }
   getFiles(UserID: string) : Observable<File[]>  {
-    return this._http.get(this.restfulAPI+'/file?where={"UserID":"'+UserID+'"}')
+    return this._http.get(this.restfulAPI+'/file?{"UserID":"'+UserID+'"}')
       .map(this.filesData)
       .catch(this.handleError);
   }
@@ -65,7 +65,7 @@ export class FileService {
       .catch(this.handleError);
   }
   getViewerData(TrimbleVersionID: string) : Observable<File[]>  {
-    return this._http.get(this.restfulAPI+'/viewer?where={"TrimbleVersionID":"'+TrimbleVersionID+'"}')
+    return this._http.get(this.restfulAPI+'/viewer?{"TrimbleVersionID":"'+TrimbleVersionID+'"}')
       .map(this.filesData)
       .catch(this.handleError);
   }
