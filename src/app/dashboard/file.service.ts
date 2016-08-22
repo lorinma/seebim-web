@@ -32,6 +32,7 @@ export class FileService {
       _id:item['_id'],
       TrimbleVersionID:item['TrimbleVersionID'],
       ThumbnailUrl:item['ThumbnailUrl'],
+      TrimbleProjectID:item['TrimbleProjectID'],
     }
   }
   getFiles(UserID: string) : Observable<File[]>  {
@@ -43,10 +44,15 @@ export class FileService {
     let items = res.json()['_items'];
     return items.map(
       item=>{
+        if(!("token" in item)){
+          item['token']=""
+        }
         let file={
           _id: item["_id"],
           TrimbleVersionID:item['TrimbleVersionID'],
           ThumbnailUrl:item['ThumbnailUrl'],
+          TrimbleProjectID:item['TrimbleProjectID'],
+          token:item['token'],
         };
         return file
       }
@@ -56,6 +62,11 @@ export class FileService {
   deleteFile(_id: string) {
     return this._http.get(this.restfulAPI+'/fileRemove/'+_id)
       .map(this.fileData)
+      .catch(this.handleError);
+  }
+  getViewerData(TrimbleVersionID: string) : Observable<File[]>  {
+    return this._http.get(this.restfulAPI+'/viewer?where={"TrimbleVersionID":"'+TrimbleVersionID+'"}')
+      .map(this.filesData)
       .catch(this.handleError);
   }
 }

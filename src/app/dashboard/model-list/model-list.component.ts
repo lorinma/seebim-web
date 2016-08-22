@@ -69,8 +69,7 @@ export class ModelListComponent implements AfterViewInit {
         .subscribe(
           file => {
             new_file=file;
-            // this.files.push(new_file);
-            // console.log(this.files);
+            this.files.push(new_file);
           },
           error => this.errorMessage = <any>error
         );
