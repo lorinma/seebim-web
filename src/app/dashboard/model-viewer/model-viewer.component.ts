@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {FileService} from "../file.service";
 import {File} from "../file";
+import {Feature} from "../feature";
 
 declare var EmbeddedViewer:any;
 declare var jQuery:any;
@@ -26,6 +27,7 @@ export class ModelViewerComponent implements OnInit {
   private viewer_data:any;
   private file:File;
   private errorMessage:string;
+  private features:Feature[];
 
   constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService) {
     this.options = {
@@ -58,7 +60,7 @@ export class ModelViewerComponent implements OnInit {
         hideMarkup: false,
         hideReset: false
       },
-      hideProperty: false
+      hideProperty: true
     }
   }
 
@@ -96,7 +98,6 @@ export class ModelViewerComponent implements OnInit {
             }
             // convert to external id (guid in ifc file)
             this.getSourceID(internal_ids, function(guid) {
-              // console.log(guid)
               var div = document.getElementById("guids");
               div.innerText=guid;
               var but = document.getElementById("selected_guids");
@@ -113,5 +114,27 @@ export class ModelViewerComponent implements OnInit {
       },
       error => this.errorMessage = <any>error
     )
+  }
+
+  getEntity(){
+    let div = jQuery(this.el.nativeElement).find('#guids');
+    let ids = div.text().split(",");
+    let guid:string;
+    if (Array.isArray(ids) && ids.length!=1) {
+      console.log("more are selected");
+      // this.entity=null;
+      // this.side_property.close();
+      return 0;
+    }
+    else {
+      guid= ids[0]
+    }
+
+    this._service.getFeatures(guid,this.file._id).subscribe(
+      features=>{
+        this.features=features;
+        console.log(features);
+      },
+      error=>this.errorMessage=<any>error)
   }
 }

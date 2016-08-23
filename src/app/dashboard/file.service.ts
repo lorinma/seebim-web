@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {RequestOptions, Headers, Http, Response} from "@angular/http";
 import {File} from "./file";
+import {Feature} from "./feature";
 
 @Injectable()
 export class FileService {
@@ -36,7 +37,7 @@ export class FileService {
     }
   }
   getFiles(UserID: string) : Observable<File[]>  {
-    return this._http.get(this.restfulAPI+'/file?{"UserID":"'+UserID+'"}')
+    return this._http.get(this.restfulAPI+'/file?where={"UserID":"'+UserID+'"}')
       .map(this.filesData)
       .catch(this.handleError);
   }
@@ -68,5 +69,29 @@ export class FileService {
     return this._http.get(this.restfulAPI+'/viewer?{"TrimbleVersionID":"'+TrimbleVersionID+'"}')
       .map(this.filesData)
       .catch(this.handleError);
+  }
+
+  getFeatures(GlobalId: string, FileId: string) : Observable<Feature[]> {
+    return this._http.get(this.restfulAPI+'/feature?where={"GlobalId":"'+GlobalId+'","FileId":"'+FileId+'"}')
+      .map(this.featuresData)
+      .catch(this.handleError);
+  }
+
+  private featuresData(res: Response) {
+    let items = res.json()['_items'];
+    return items.map(
+      item=>{
+        let feature={
+          FileId:item["FileId"],
+          FeatureDescription:item["FeatureDescription"],
+          FeatureType:item["FeatureType"],
+          FeatureName:item["FeatureName"],
+          FeatureValue:item["FeatureValue"],
+          FeatureProvider:item["FeatureProvider"],
+          GlobalId:item["GlobalId"],
+        };
+        return feature
+      }
+    );
   }
 }

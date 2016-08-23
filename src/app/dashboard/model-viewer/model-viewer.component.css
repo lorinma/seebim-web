@@ -1,0 +1,30 @@
+.invisible{
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+}
+.fixwidth{
+  width:300px;
+}
+
+.query{
+  position: absolute;
+  right: 3%;
+  top: 6px;
+  z-index: 1;
+}
+
+.clear{
+  position: absolute;
+  right: 10%;
+  top: 6px;
+  z-index: 1;
+}
+
+#TrimbleConnectViewer{
+  height:1000px;
+}
+.card-container {
+  display: flex;
+  flex-flow: row wrap;
+}
