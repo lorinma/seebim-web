@@ -28,6 +28,7 @@ export class ModelViewerComponent implements OnInit {
   private file:File;
   private errorMessage:string;
   private features:Feature[];
+  private formshow;
   constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService,private router:Router) {
     this.options = {
       hideLeftPanel: false,
@@ -59,7 +60,7 @@ export class ModelViewerComponent implements OnInit {
         hideMarkup: false,
         hideReset: false
       },
-      hideProperty: true
+      hideProperty: false
     }
   }
   ngOnInit() {
@@ -130,7 +131,11 @@ export class ModelViewerComponent implements OnInit {
     this._service.getFeatures(guid,this.file.TrimbleVersionID).subscribe(
       features=>{
         this.features=features;
-        console.log(features);
+        this.formshow=new Array();
+        // for(var i in this.entity.PropertySets){
+        //   this.formshow.push(false);
+        // }
+        // this.side_property.open();
       },
       error=>this.errorMessage=<any>error)
   }
