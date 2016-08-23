@@ -52,14 +52,12 @@ export class ModelListComponent implements AfterViewInit {
     };
     this.getFiles()
   }
-
   ngAfterViewInit(){
     let but=Dropbox.createChooseButton(this.options);
     jQuery(this.el.nativeElement).find('#dropbox-container').append(but);
     jQuery(this.el.nativeElement).find('#dropbox-container').append('<a id="_url"></a>');
 
   }
-
   addFile(){
     let file_url:string;
     file_url=jQuery(this.el.nativeElement).find('#_url').attr("href");
@@ -75,7 +73,6 @@ export class ModelListComponent implements AfterViewInit {
         );
     }
   }
-
   getFiles() {
     this._service.getFiles(this.user_id).subscribe(
       res=>{
@@ -84,7 +81,6 @@ export class ModelListComponent implements AfterViewInit {
       error => this.errorMessage = <any>error
     )
   }
-
   deleteFile(file:File) {
     let _id=file._id;
     let inx = this.files.indexOf(file);

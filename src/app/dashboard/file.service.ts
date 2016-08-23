@@ -31,9 +31,7 @@ export class FileService {
     let item = res.json();
     return {
       _id:item['_id'],
-      TrimbleVersionID:item['TrimbleVersionID'],
       ThumbnailUrl:item['ThumbnailUrl'],
-      TrimbleProjectID:item['TrimbleProjectID'],
     }
   }
   getFiles(UserID: string) : Observable<File[]>  {
@@ -50,10 +48,7 @@ export class FileService {
         }
         let file={
           _id: item["_id"],
-          TrimbleVersionID:item['TrimbleVersionID'],
           ThumbnailUrl:item['ThumbnailUrl'],
-          TrimbleProjectID:item['TrimbleProjectID'],
-          token:item['token'],
         };
         return file
       }
@@ -65,14 +60,21 @@ export class FileService {
       .map(this.fileData)
       .catch(this.handleError);
   }
-  getViewerData(TrimbleVersionID: string) : Observable<File[]>  {
-    return this._http.get(this.restfulAPI+'/viewer?{"TrimbleVersionID":"'+TrimbleVersionID+'"}')
-      .map(this.filesData)
+  getViewerData(_id: string) : Observable<File>  {
+    return this._http.get(this.restfulAPI+'/viewer/'+_id)
+      .map(this.viewerData)
       .catch(this.handleError);
   }
-
-  getFeatures(GlobalId: string, FileId: string) : Observable<Feature[]> {
-    return this._http.get(this.restfulAPI+'/feature?where={"GlobalId":"'+GlobalId+'","FileId":"'+FileId+'"}')
+  viewerData(res: Response) {
+    let item = res.json();
+    return {
+      token:item['token'],
+      TrimbleVersionID:item['TrimbleVersionID'],
+      TrimbleProjectID:item['TrimbleProjectID'],
+    }
+  }
+  getFeatures(GlobalId: string, FileID: string) : Observable<Feature[]> {
+    return this._http.get(this.restfulAPI+'/feature?where={"GlobalId":"'+GlobalId+'","FileID":"'+FileID+'"}')
       .map(this.featuresData)
       .catch(this.handleError);
   }

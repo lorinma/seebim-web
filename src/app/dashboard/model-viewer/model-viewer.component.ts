@@ -28,7 +28,6 @@ export class ModelViewerComponent implements OnInit {
   private file:File;
   private errorMessage:string;
   private features:Feature[];
-
   constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService) {
     this.options = {
       hideLeftPanel: false,
@@ -63,19 +62,16 @@ export class ModelViewerComponent implements OnInit {
       hideProperty: true
     }
   }
-
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.model_id=params['id']; // (+) converts string 'id' to a number
       this.getFile()
     });
   }
-
   private getFile() {
-
     this._service.getViewerData(this.model_id).subscribe(
       res=>{
-        this.file=res[0];
+        this.file=res;
         this.ViewerNode=jQuery(this.el.nativeElement).find('#TrimbleConnectViewer');
         this.viewer_data = {
           "domNode": this.ViewerNode,
@@ -115,7 +111,6 @@ export class ModelViewerComponent implements OnInit {
       error => this.errorMessage = <any>error
     )
   }
-
   getEntity(){
     let div = jQuery(this.el.nativeElement).find('#guids');
     let ids = div.text().split(",");
@@ -129,8 +124,7 @@ export class ModelViewerComponent implements OnInit {
     else {
       guid= ids[0]
     }
-
-    this._service.getFeatures(guid,this.file._id).subscribe(
+    this._service.getFeatures(guid,this.file.TrimbleVersionID).subscribe(
       features=>{
         this.features=features;
         console.log(features);

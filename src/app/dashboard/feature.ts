@@ -1,5 +1,5 @@
 export class Feature {
-  FileId:string;
+  FileID:string;
   FeatureDescription:string;
   FeatureType:string;
   FeatureName:string;
