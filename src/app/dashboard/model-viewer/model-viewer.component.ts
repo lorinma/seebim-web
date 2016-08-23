@@ -1,5 +1,5 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {FileService} from "../file.service";
 import {File} from "../file";
@@ -28,7 +28,7 @@ export class ModelViewerComponent implements OnInit {
   private file:File;
   private errorMessage:string;
   private features:Feature[];
-  constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService) {
+  constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService,private router:Router) {
     this.options = {
       hideLeftPanel: false,
       leftPanel: {
@@ -108,7 +108,10 @@ export class ModelViewerComponent implements OnInit {
         };
         this.viewer = new EmbeddedViewer(this.viewer_data);
       },
-      error => this.errorMessage = <any>error
+      error => {
+        this.router.navigate(['']);
+        this.errorMessage = <any>error
+      }
     )
   }
   getEntity(){
