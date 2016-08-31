@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {FileService} from "../file.service";
@@ -17,9 +17,9 @@ declare var jQuery:any;
   ]
 })
 export class ModelViewerComponent implements OnInit {
-
+  @ViewChild('info') side_property;
   private sub: Subscription;
-
+  private geometry_show=false;
   private model_id:string;
   private options:Object;
   private ViewerNode:any;
@@ -131,11 +131,11 @@ export class ModelViewerComponent implements OnInit {
     this._service.getFeatures(guid,this.file.TrimbleVersionID).subscribe(
       features=>{
         this.features=features;
-        this.formshow=new Array();
         // for(var i in this.entity.PropertySets){
         //   this.formshow.push(false);
         // }
-        // this.side_property.open();
+        console.log(features)
+        this.side_property.open();
       },
       error=>this.errorMessage=<any>error)
   }

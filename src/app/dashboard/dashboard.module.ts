@@ -11,6 +11,8 @@ import {ModelListComponent} from "./model-list/model-list.component";
 import {ModelViewerComponent} from "./model-viewer/model-viewer.component";
 import {dashboardRouting} from "./dashboard.routing";
 import {DashboardComponent} from "./dashboard.component";
+import {MdTabsModule} from "@angular2-material/tabs";
+import {MdInputModule} from "@angular2-material/input";
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import {DashboardComponent} from "./dashboard.component";
     MdSidenavModule,
     MdListModule,
     MdIconModule,
+    MdTabsModule,
+    MdInputModule,
   ],
   providers: [
   ],
