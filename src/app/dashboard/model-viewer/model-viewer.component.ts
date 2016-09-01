@@ -20,14 +20,21 @@ export class ModelViewerComponent implements OnInit {
   @ViewChild('info') side_property;
   private sub: Subscription;
   private geometry_show=false;
+  private pairwise_show=false;
   private model_id:string;
   private options:Object;
   private ViewerNode:any;
   private viewer:any;
   private viewer_data:any;
   private file:File;
+  private all_obj_ids:string[];
+  private hidden_obj_ids:string[];
   private errorMessage:string;
   private features:Feature[];
+  private geometry_features:Feature[];
+  private pairwise_features:Feature[];
+  private user_features:Feature[];
+  private guid:string;
   private formshow;
   constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService,private router:Router) {
     this.options = {
@@ -108,6 +115,14 @@ export class ModelViewerComponent implements OnInit {
           "title": "SeeBIM Viewer",
         };
         this.viewer = new EmbeddedViewer(this.viewer_data);
+        var self=this;
+        this.all_obj_ids=new Array();
+        this.hidden_obj_ids=new Array();
+        // this.viewer.getObjectCount(function(count){
+        //   self.viewer.getObjectsRange(0,count,function(ids){
+        //     self.all_obj_ids=ids;
+        //   });
+        // });
       },
       error => {
         this.router.navigate(['']);
@@ -131,12 +146,61 @@ export class ModelViewerComponent implements OnInit {
     this._service.getFeatures(guid,this.file.TrimbleVersionID).subscribe(
       features=>{
         this.features=features;
-        // for(var i in this.entity.PropertySets){
-        //   this.formshow.push(false);
-        // }
-        console.log(features)
+        this.guid=features[0].GlobalId;
+        this.geometry_features=new Array();
+        this.pairwise_features=new Array();
+        this.user_features=new Array();
+        for(var i=0; i<features.length; i++){
+          if(features[i].FeatureType=='Geometry'){
+            this.geometry_features.push(features[i]);
+            continue;
+          }
+          if(features[i].FeatureType=='Pairwise'){
+            this.pairwise_features.push(features[i]);
+            continue;
+          }
+          if(features[i].FeatureType=='User'){
+            this.user_features.push(features[i]);
+            continue;
+          }
+        }
         this.side_property.open();
       },
       error=>this.errorMessage=<any>error)
+  }
+
+  show_objects(objs:string[]){
+    var self=this;
+    this.viewer.getGTeamID(
+      objs,
+      [this.file.TrimbleVersionID],
+      function(ids){
+        // var show0=new Array;
+        // for(var i=0;i<self.all_obj_ids.length;i++){
+        //   show0.push(self.all_obj_ids[i]);
+        // }
+        // console.log(show0);
+        // for(var i=0;i<self.hidden_obj_ids.length;i++){
+        //   var inx=self.all_obj_ids.indexOf(self.hidden_obj_ids[i]);
+        //   if(inx>0){
+        //     show0.splice(inx,1);
+        //   }
+        // }
+        // console.log(show0);
+        // var show = ids;
+        // for(var i=0;i<show0.length;i++){
+        //   var inx=show.indexOf(show0[i]);
+        //   if(inx<0){
+        //     self.hidden_obj_ids.push(show0[i]);
+        //   }
+        // }
+        // console.log(self.hidden_obj_ids);
+        // self.viewer.hide(self.hidden_obj_ids);
+
+        // self.viewer.setSelection(id,false);
+        self.viewer.highlight(ids,false);
+        // self.viewer.show(id);
+      }
+    );
   }
 }

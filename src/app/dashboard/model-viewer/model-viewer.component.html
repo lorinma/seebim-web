@@ -1,5 +1,10 @@
 <md-sidenav-layout>
   <md-sidenav #info align="left" style="width: 30%">
+    <md-list>
+      <md-list-item>
+        <md-input value={{this.guid}} placeholder='GlobalID'  disabled="true"></md-input>
+      </md-list-item>
+    </md-list>
     <md-tab-group>
       <md-tab>
         <template md-tab-label>Features</template>
@@ -10,10 +15,23 @@
             <span *ngIf="!geometry_show">Expand</span>
           </button>
             <md-list *ngIf="geometry_show">
-              <md-list-item *ngFor="let feature of features">
+              <md-list-item *ngFor="let feature of geometry_features">
                 <md-input *ngIf="feature.FeatureType=='Geometry'" value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>
               </md-list-item>
             </md-list>
+          <button md-button  color="primary" (click)="pairwise_show=!pairwise_show">
+            Pairwise Features -
+            <span *ngIf="pairwise_show">Collapse</span>
+            <span *ngIf="!pairwise_show">Expand</span>
+          </button>
+          <md-list *ngIf="pairwise_show">
+            <md-list-item *ngFor="let feature of pairwise_features">
+              <!--<md-input *ngIf="feature.FeatureType=='Pairwise'" value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>-->
+              <button md-raised-button color="accent" (click)="show_objects(feature.FeatureValue)">
+                {{feature.FeatureName}}
+              </button>
+            </md-list-item>
+          </md-list>
         </template>
       </md-tab>
       <!--<md-tab>-->
