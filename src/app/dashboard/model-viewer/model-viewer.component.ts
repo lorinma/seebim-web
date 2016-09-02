@@ -81,16 +81,22 @@ export class ModelViewerComponent implements OnInit {
       res=>{
         this.file=res;
         this.ViewerNode=jQuery(this.el.nativeElement).find('#TrimbleConnectViewer');
+        // console.log(this.file.token)
         this.viewer_data = {
           "domNode": this.ViewerNode,
+          "title": "SeeBIM Viewer",
+          "noProperties": false,
+          "noLeft": false,
+          "debug": true,
+          "options": this.options,
+          // do not set width and height, then they re 100%
+          // "width": "80%",
+          // "height": "1000",
+          "gteamOrigin": encodeURIComponent("https://app.prod.gteam.com"),
           "projId": this.file.TrimbleProjectID,
           "objects": this.file.TrimbleVersionID,
           "accessToken": this.file.token,
           "class": "embeddedViewFrame",
-          // do not set width and height, then they re 100%
-          // "width": "80%",
-          // "height": "1000",
-          "debug": true,
           "onInitialized": function() {
             // do something with https://app.prod.gteam.com/tc/static/apidoc.html
           },
@@ -110,9 +116,6 @@ export class ModelViewerComponent implements OnInit {
               but.dispatchEvent(evt);
             });
           },
-          "options": this.options,
-          "gteamOrigin": encodeURIComponent("https://app.prod.gteam.com"),
-          "title": "SeeBIM Viewer",
         };
         this.viewer = new EmbeddedViewer(this.viewer_data);
         var self=this;
