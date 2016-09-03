@@ -1,9 +1,9 @@
-export class SeebimWebPage {
+export class SeeBIMPage {
   navigateTo() {
     return browser.get('/');
   }
 
   getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+    return element(by.css('see-bim-app h1')).getText();
   }
 }

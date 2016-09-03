@@ -1,0 +1,10 @@
+md-input {
+  margin: 8px 0;
+  width: 50%;
+}
+md-card {
+  /*float: right;*/
+  width: 400px;
+  box-sizing: border-box;
+  margin: 16px;
+}

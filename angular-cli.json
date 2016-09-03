@@ -1,7 +1,7 @@
 {
   "project": {
-    "version": "1.0.0-beta.11-webpack.2",
-    "name": "seebim-web"
+    "version": "1.0.0-beta.5",
+    "name": "see-bim"
   },
   "apps": [
     {
@@ -26,7 +26,6 @@
     "prefix": "app",
     "sourceDir": "src",
     "styleExt": "css",
-    "prefixInterfaces": false,
-    "lazyRoutePrefix": "+"
+    "prefixInterfaces": false
   }
 }

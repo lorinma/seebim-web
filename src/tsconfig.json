@@ -1,20 +1,22 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "mapRoot": "./",
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "../dist/out-tsc",
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "outDir": "../dist/",
+    "rootDir": ".",
     "sourceMap": true,
     "target": "es5",
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "jasmine"
-    ]
-  }
+    "inlineSources": true
+  },
+
+  "files": [
+    "main.ts",
+    "typings.d.ts"
+  ]
 }

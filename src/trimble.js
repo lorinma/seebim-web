@@ -258,17 +258,17 @@ for (var method_name in methods) {
                 if (arguments.length !== required_arguments.length) {
                     throw new Error("Invalid number of arguments, given: " + arguments.length
                                     + ", required: " + required_arguments.length);
-                }
-              var message = {"name": method_name};
+                };
+                var message = {"name": method_name};
                 var callback = null;
                 for (var i = 0; i < required_arguments.length; i++) {
                     message[required_arguments[i]] = arguments[i];
                     if (required_arguments[i] === "callback") {
                         callback = arguments[i];
-                    }
-                }
-              this._sendMessage(message, callback);
+                    };
+                };
+                this._sendMessage(message, callback);
             };
         })(method_name);
-    }
-}
+    };
+};
