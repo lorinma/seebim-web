@@ -14,7 +14,7 @@
             <span *ngIf="geometry_show">Collapse</span>
             <span *ngIf="!geometry_show">Expand</span>
           </button>
-            <md-list *ngIf="geometry_show">
+          <md-list *ngIf="geometry_show">
               <md-list-item *ngFor="let feature of geometry_features">
                 <md-input value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>
               </md-list-item>
@@ -39,59 +39,28 @@
           </md-list>
         </template>
       </md-tab>
-      <!--<md-tab>-->
-        <!--<template md-tab-label>User Properties</template>-->
-        <!--<template md-tab-content>-->
-          <!--<button md-mini-fab (click)="addUserPropertySet()">-->
-            <!--<md-icon>add</md-icon>-->
-          <!--</button>-->
-          <!--<button md-mini-fab (click)="updateUserPropertySet()">-->
-            <!--<md-icon>cached</md-icon>-->
-          <!--</button>-->
-          <!--<md-card *ngFor="let user_property_set of entity?.UserProperty"  align="left"  class="card-container" style="width: 300px;">-->
-            <!--<md-card-subtitle>-->
-              <!--<md-input placeholder="Property Set Name" [(ngModel)]="user_property_set.Name"></md-input>-->
-              <!--<md-input placeholder="Description" [(ngModel)]="user_property_set.Description"></md-input>-->
-              <!--<div align="end">-->
-                <!--<button md-mini-fab (click)="addUserProperty(user_property_set)" >-->
-                  <!--<md-icon>add</md-icon>-->
-                <!--</button>-->
-                <!--<button md-mini-fab (click)="removeUserPropertySet(user_property_set)" >-->
-                  <!--<md-icon>delete</md-icon>-->
-                <!--</button>-->
-              <!--</div>-->
-            <!--</md-card-subtitle>-->
-            <!--<md-card-content class="card-container">-->
-              <!--<md-card *ngFor="let user_property of user_property_set.Children" style="width: 250px">-->
-                <!--<md-card-content class="card-container">-->
-                  <!--<md-input placeholder="Property Name" [(ngModel)]="user_property.Name"></md-input>-->
-                  <!--<md-input placeholder="Description" [(ngModel)]="user_property.Description"></md-input>-->
-                  <!--<md-input placeholder="Value" [(ngModel)]="user_property.Value"></md-input>-->
-                <!--</md-card-content>-->
-                <!--<md-card-actions align="end">-->
-                  <!--<button md-mini-fab (click)="removeUserProperty(user_property_set,user_property)" align="end">-->
-                    <!--<md-icon>delete</md-icon>-->
-                  <!--</button>-->
-                <!--</md-card-actions>-->
-              <!--</md-card>-->
-            <!--</md-card-content>-->
-          <!--</md-card>-->
-        <!--</template>-->
-      <!--</md-tab>-->
-      <!--<md-tab>-->
-        <!--<template md-tab-label>Geometry Features</template>-->
-        <!--<template md-tab-content>-->
-          <!--<md-card  align="left" class="card-container">-->
-            <!--<md-card-content>-->
-              <!--<button md-raised-button color="accent" (click)="query.open();info.close()" align="end" class="query">Explore the Model in Spatial Context</button>-->
-              <!--<div *ngFor="let feature of entity?.Features" >-->
-                <!--<md-input *ngIf="feature_type(feature.Value)=='input'" class="fixwidth" placeholder={{feature.Name}} disabled [value]="parse_feature(feature.Value)"></md-input>-->
-              <!--</div>-->
-            <!--</md-card-content>-->
-          <!--</md-card>-->
-          <!--&lt;!&ndash;<app-viewer style="float: right" [extent]="extent" [transformation]="transformation" [centroid]="centroid" [geometry]="geometry" [WIDTH]="400" [HEIGHT]="400"></app-viewer>&ndash;&gt;-->
-        <!--</template>-->
-      <!--</md-tab>-->
+      <md-tab>
+        <template md-tab-label>
+          User Properties
+        </template>
+        <template md-tab-content>
+          <button md-mini-fab (click)="user_input_show=!user_input_show">
+            <md-icon *ngIf="!user_input_show">add</md-icon>
+            <md-icon *ngIf="user_input_show">remove</md-icon>
+          </button>
+          <md-card *ngIf="user_input_show">
+            <md-input placeholder="new label"></md-input>
+            <button md-button color="warn" (click)="add()">
+              Add
+            </button>
+          </md-card>
+          <md-list>
+            <md-list-item *ngFor="let feature of user_features">
+              <md-input value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>
+            </md-list-item>
+          </md-list>
+        </template>
+      </md-tab>
     </md-tab-group>
   </md-sidenav>
   <div id="TrimbleConnectViewer"></div>

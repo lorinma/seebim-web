@@ -21,6 +21,7 @@ export class ModelViewerComponent implements OnInit {
   private sub: Subscription;
   private geometry_show=false;
   private pairwise_show=false;
+  private user_input_show=false;
   private model_id:string;
   private options:Object;
   private ViewerNode:any;
@@ -184,5 +185,9 @@ export class ModelViewerComponent implements OnInit {
 
   reset_viewer(){
     this.viewer.showAll();
+  }
+
+  add(){
+    this.user_input_show=false;
   }
 }
