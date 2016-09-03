@@ -2,7 +2,7 @@
   <md-sidenav #info align="left" style="width: 30%">
     <md-list>
       <md-list-item>
-        <md-input value={{this.guid}} placeholder='GlobalID'  disabled="true"></md-input>
+        <md-input value={{this.guid}} placeholder='GlobalID' disabled="true" style="width: 25%" ></md-input>
       </md-list-item>
     </md-list>
     <md-tab-group>
@@ -16,7 +16,7 @@
           </button>
             <md-list *ngIf="geometry_show">
               <md-list-item *ngFor="let feature of geometry_features">
-                <md-input *ngIf="feature.FeatureType=='Geometry'" value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>
+                <md-input value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>
               </md-list-item>
             </md-list>
           <button md-button  color="primary" (click)="pairwise_show=!pairwise_show">
@@ -26,7 +26,6 @@
           </button>
           <md-list *ngIf="pairwise_show">
             <md-list-item *ngFor="let feature of pairwise_features">
-              <!--<md-input *ngIf="feature.FeatureType=='Pairwise'" value={{feature.FeatureValue}} placeholder={{feature.FeatureName}}  disabled="true"></md-input>-->
               <button md-raised-button color="accent" (click)="show_objects(feature.FeatureValue)">
                 {{feature.FeatureName}}
               </button>
@@ -89,48 +88,6 @@
       <!--</md-tab>-->
     </md-tab-group>
   </md-sidenav>
-  <!--<md-sidenav #query align="left" style="width: 25%">-->
-    <!--<md-tab-group>-->
-      <!--<md-tab>-->
-        <!--<template md-tab-label>Pairwise Features</template>-->
-        <!--<template md-tab-content>-->
-          <!--Pairwise Features-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="highlight()">Highlight</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="viewerReset()">Reset model</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="connect()">Connected objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notConnect()">Unconnected objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="paraExtrusion()">Parallel objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notParaExtrusion()">Non-parallel objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="higherCentroid()">Objects with lower centroid</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="lowerCentroid()">Objects with higher centroid</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="higherBottom()">Objects with lower base level</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="lowerBottom()">Objects with higher base level</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="longgerExtrusion()">Shorter objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="shorterExtrusion()">Longer objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="convex()">I'm convex</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notConvex()">I'm not convex</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="parallelBridge()">Parallel with the bridge longitudinal axis?</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notParallelBridge()">not parallel with the longitudinal axis?</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="volumeBigger()">Smaller objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="volumeSmaller()">Bigger objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notCompleteAbove()">Objects not complete below</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="completeAbove()">Objects completely below</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="closerLongi()">Objects further to bridge longitudinal axis</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="furtherLongi()">Objects closer to bridge longitudinal axis</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="closerTran()">Objects further to Bridge transverse axis</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="furtherTran()">Objects closer to Bridge transverse axis</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="paraBriTrans()"> Parallel with bridge transverse axis?</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notParaBriTrans()"> not parallel with transverse axis?</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="Vertical()"> Vertical?</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notVertical()"> not vertical?</button></div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="overlapZ()">Overlapping objects</button></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div style="margin: 10px"><button md-raised-button color="accent" (click)="notOverlapZ()">Nonoverlapping objects</button></div>&ndash;&gt;-->
-        <!--</template>-->
-      <!--</md-tab>-->
-    <!--</md-tab-group>-->
-  <!--</md-sidenav>-->
-  <!--<button *ngIf="viewer" md-raised-button color="accent" (click)="sheet_info=true;run()" class="query">Run the Object Classification Process</button>-->
-
   <div id="TrimbleConnectViewer"></div>
 <div class="invisible" id='guids'></div>
 <button (click)="getEntity();" class="invisible" id='selected_guids'></button>

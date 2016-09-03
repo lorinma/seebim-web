@@ -81,7 +81,6 @@ export class ModelViewerComponent implements OnInit {
       res=>{
         this.file=res;
         this.ViewerNode=jQuery(this.el.nativeElement).find('#TrimbleConnectViewer');
-        // console.log(this.file.token)
         this.viewer_data = {
           "domNode": this.ViewerNode,
           "title": "SeeBIM Viewer",
@@ -139,8 +138,6 @@ export class ModelViewerComponent implements OnInit {
     let guid:string;
     if (Array.isArray(ids) && ids.length!=1) {
       console.log("more are selected");
-      // this.entity=null;
-      // this.side_property.close();
       return 0;
     }
     else {
@@ -154,18 +151,16 @@ export class ModelViewerComponent implements OnInit {
         this.pairwise_features=new Array();
         this.user_features=new Array();
         for(var i=0; i<features.length; i++){
-          if(features[i].FeatureType=='Geometry'){
+          if(features[i].FeatureType=='Geometry' && features[i].FeatureProvider=='System'){
             this.geometry_features.push(features[i]);
             continue;
           }
-          if(features[i].FeatureType=='Pairwise'){
+          if(features[i].FeatureType=='Pairwise' && features[i].FeatureProvider=='System'){
             this.pairwise_features.push(features[i]);
             continue;
           }
-          if(features[i].FeatureType=='User'){
-            this.user_features.push(features[i]);
-            continue;
-          }
+          //else they are user defined features
+          this.user_features.push(features[i]);
         }
         this.side_property.open();
       },
@@ -178,30 +173,10 @@ export class ModelViewerComponent implements OnInit {
       objs,
       [this.file.TrimbleVersionID],
       function(ids){
-        // var show0=new Array;
-        // for(var i=0;i<self.all_obj_ids.length;i++){
-        //   show0.push(self.all_obj_ids[i]);
-        // }
-        // console.log(show0);
-        // for(var i=0;i<self.hidden_obj_ids.length;i++){
-        //   var inx=self.all_obj_ids.indexOf(self.hidden_obj_ids[i]);
-        //   if(inx>0){
-        //     show0.splice(inx,1);
-        //   }
-        // }
-        // console.log(show0);
-        // var show = ids;
-        // for(var i=0;i<show0.length;i++){
-        //   var inx=show.indexOf(show0[i]);
-        //   if(inx<0){
-        //     self.hidden_obj_ids.push(show0[i]);
-        //   }
-        // }
-        // console.log(self.hidden_obj_ids);
-        // self.viewer.hide(self.hidden_obj_ids);
-
+        console.log(ids);
+        self.viewer.hide(ids);
         // self.viewer.setSelection(id,false);
-        self.viewer.highlight(ids,false);
+        // self.viewer.highlight(ids,false);
         // self.viewer.show(id);
       }
     );

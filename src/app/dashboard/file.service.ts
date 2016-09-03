@@ -35,7 +35,7 @@ export class FileService {
     }
   }
   getFiles(UserID: string) : Observable<File[]>  {
-    return this._http.get(this.restfulAPI+'/file?where={"UserID":"'+UserID+'"}')
+    return this._http.get(this.restfulAPI+'/fileList?where={"UserID":"'+UserID+'"}')
       .map(this.filesData)
       .catch(this.handleError);
   }
@@ -73,8 +73,8 @@ export class FileService {
       TrimbleProjectID:item['TrimbleProjectID'],
     }
   }
-  getFeatures(GlobalId: string, FileID: string) : Observable<Feature[]> {
-    return this._http.get(this.restfulAPI+'/feature?where={"GlobalId":"'+GlobalId+'","FileID":"'+FileID+'"}')
+  getFeatures(GlobalId: string, TrimbleVersionID: string) : Observable<Feature[]> {
+    return this._http.get(this.restfulAPI+'/featureVisual?where={"GlobalId":"'+GlobalId+'","TrimbleVersionID":"'+TrimbleVersionID+'"}')
       .map(this.featuresData)
       .catch(this.handleError);
   }
@@ -84,7 +84,7 @@ export class FileService {
     return items.map(
       item=>{
         let feature={
-          FileId:item["FileId"],
+          TrimbleVersionID:item["TrimbleVersionID"],
           FeatureDescription:item["FeatureDescription"],
           FeatureType:item["FeatureType"],
           FeatureName:item["FeatureName"],
