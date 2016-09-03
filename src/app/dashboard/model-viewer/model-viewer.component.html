@@ -2,7 +2,7 @@
   <md-sidenav #info align="left" style="width: 30%">
     <md-list>
       <md-list-item>
-        <md-input value={{this.guid}} placeholder='GlobalID' disabled="true" style="width: 25%" ></md-input>
+        <md-input value={{this.guid}} placeholder='GlobalID' disabled="true" style="width: 80%" ></md-input>
       </md-list-item>
     </md-list>
     <md-tab-group>
@@ -30,6 +30,12 @@
                 {{feature.FeatureName}}
               </button>
             </md-list-item>
+            <md-list-item>
+              <button md-raised-button color="accent" (click)="reset_viewer()">
+                Show all
+              </button>
+            </md-list-item>
+
           </md-list>
         </template>
       </md-tab>

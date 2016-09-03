@@ -181,4 +181,8 @@ export class ModelViewerComponent implements OnInit {
       }
     );
   }
+
+  reset_viewer(){
+    this.viewer.showAll();
+  }
 }
