@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="three.min.js"></script>
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>-->
+<script type="text/javascript" src="TrackballControls.js"></script>
+<style>
+body {
+    background-color: white;
+}
+</style>
+<script type="text/javascript" src="{{path_js}}"></script>
+<script>
+$(document).ready(function() {
+    // 'use strict';
+    // 'To actually be able to display anything with Three.js, we need three things:
+    // A scene, a camera, and a renderer so we can render the scene with the camera.'
+    // - http://threejs.org/docs/#Manual/Introduction/Creating_a_scene
+    // var url = "5588bca7192d2a000a0c02e1.pcd";
+    // var url = "https://preview.c9users.io/lorinma/python/5588bca7192d2a000a0c02e1.pcd"
+    
+    var scene, camera, renderer;
+    var controls, container;
+			
+    var HEIGHT, WIDTH, windowHalfX, windowHalfY, fieldOfView, 
+        aspectRatio, nearPlane, farPlane, cameraZ, fogHex, fogDensity,
+        container, mouseX = 0, mouseY = 0;
+    
+    init();
+    // addAllPoints();
+    var material = new THREE.MeshBasicMaterial( {color: 0x4D464E,opacity:0.8} );
+    var model = new Shape();
+    model.center();
+    var object = new THREE.Mesh( model, material);
+    object.overdraw = true;
+    scene.add( object );
+    animate();
+    
+        
+    function init() {
+        HEIGHT = window.innerHeight;
+        WIDTH = window.innerWidth;
+        windowHalfX = WIDTH / 2;
+        windowHalfY = HEIGHT / 2;
+    
+        fieldOfView = 25;
+        aspectRatio = WIDTH / HEIGHT;
+        nearPlane = 1;
+        farPlane = 20;
+    
+        /*  fieldOfView — Camera frustum vertical field of view.
+        aspectRatio — Camera frustum aspect ratio.
+        nearPlane — Camera frustum near plane.
+        farPlane — Camera frustum far plane.
+    
+        - http://threejs.org/docs/#Reference/Cameras/PerspectiveCamera
+    
+        In geometry, a frustum (plural: frusta or frustums)
+        is the portion of a solid (normally a cone or pyramid)
+        that lies between two parallel planes cutting it. - wikipedia.      */
+    
+        cameraZ = farPlane / 3; /*  So, 1000? Yes! move on! */
+        fogHex = 0xFFFFFF; /* As white as your heart.   */
+        fogDensity = 0.0007; /* So not terribly dense?  */
+    
+        camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
+        camera.position.z = cameraZ;
+    
+        scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(fogHex, fogDensity);
+    
+        container = document.createElement('div');
+        document.body.appendChild(container);
+        document.body.style.margin = 0;
+        document.body.style.overflow = 'hidden';
+        
+        renderer = new THREE.WebGLRenderer({ alpha: true }); /*    Rendererererers particles.  */
+        renderer.setPixelRatio(window.devicePixelRatio); /* Probably 1; unless you're fancy.    */
+        renderer.setSize(WIDTH, HEIGHT); /* Full screen baby Wooooo!    */
+        renderer.setClearColor(0xFFFFFF);
+        renderer.autoClear=true;
+    
+        container.appendChild(renderer.domElement); /* Let's add all this crazy junk to the page.   */
+        /* Event Listeners */
+        
+		controls = new THREE.TrackballControls( camera );
+		controls.rotateSpeed = 1.0;
+		controls.zoomSpeed = 1.2;
+		controls.panSpeed = 0.8;
+		controls.noZoom = false;
+		controls.noPan = false;
+		controls.staticMoving = true;
+		controls.dynamicDampingFactor = 0.3;
+		controls.keys = [ 65, 83, 68 ];
+		controls.addEventListener( 'change', render );
+    }
+    function animate() {
+		requestAnimationFrame( animate );
+		controls.update();
+	}
+    function render() {
+        camera.lookAt(scene.position);
+		renderer.render( scene, camera );
+	}
+    function onWindowResize() {
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+		controls.handleResize();
+		render();
+    }
+});
+</script>
+</head>
+<body>
+
+<div id="data"></div>
+<div id="container"></div>
+</body>
+</html>
