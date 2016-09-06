@@ -13,7 +13,7 @@
 <div class="card-container">
   <md-card *ngFor="let file of files" class="card">
     <img md-card-image *ngIf="file.ThumbnailUrl" [src]="file.ThumbnailUrl">
-    <img md-card-image *ngIf="!file.ThumbnailUrl" src='http://sk.uploads.im/t/asbSP.jpg'>
+    <img md-card-image *ngIf="!file.ThumbnailUrl" src='../../../waiting_for_process.png'>
     <md-card-actions align="end">
       <a [routerLink]="file._id" *ngIf="file.ThumbnailUrl"><button md-button color="primary">View Model</button></a>
       <button md-button color="primary" (click)="deleteFile(file)">Delete Model</button>

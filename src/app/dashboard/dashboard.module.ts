@@ -13,10 +13,11 @@ import {dashboardRouting} from "./dashboard.routing";
 import {DashboardComponent} from "./dashboard.component";
 import {MdTabsModule} from "@angular2-material/tabs";
 import {MdInputModule} from "@angular2-material/input";
+import {ProjectListComponent} from "./project-list/project-list.component";
 
 @NgModule({
   declarations: [
-    DashboardComponent, ModelListComponent, ModelViewerComponent
+    DashboardComponent, ModelListComponent, ModelViewerComponent, ProjectListComponent
   ],
   imports: [
     CommonModule,
