@@ -73,7 +73,7 @@ export class ModelViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.model_id=params['id']; // (+) converts string 'id' to a number
+      this.model_id=params['id'];
       this.getFile()
     });
   }
@@ -174,7 +174,6 @@ export class ModelViewerComponent implements OnInit {
       objs,
       [this.file.TrimbleVersionID],
       function(ids){
-        console.log(ids);
         self.viewer.hide(ids);
         // self.viewer.setSelection(id,false);
         // self.viewer.highlight(ids,false);

@@ -8,9 +8,9 @@ const dashboardRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      // { path: 'model/:id', component: ModelViewerComponent },
       { path: '', component: ProjectListComponent },
-      { path: 'model', component: ModelListComponent }
+      { path: 'project/:id', component: ModelListComponent },
+      { path: 'model/:id', component: ModelViewerComponent }
     ]
   },
 ];

@@ -23,7 +23,7 @@
     <md-card-title>{{project.Name}}</md-card-title>
     <md-card-content>{{project.Description}}</md-card-content>
     <md-card-actions align="end">
-      <a [routerLink]="'project/'+project._id"><button md-button color="primary">Open Project</button></a>
+      <a [routerLink]="'/dashboard/project/'+project._id"><button md-button color="primary">Open Project</button></a>
       <button md-button color="primary" (click)="deleteProject(project)">Delete Project</button>
     </md-card-actions>
   </md-card>

@@ -3,5 +3,6 @@ export class File {
   ThumbnailUrl: string;
   token: string;
   TrimbleVersionID: string;
+  ProjectID: string;
   TrimbleProjectID: string;
 }

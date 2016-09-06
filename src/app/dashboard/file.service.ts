@@ -16,9 +16,9 @@ export class FileService {
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
-  addFile(UserID: string, Url: string) : Observable<File> {
+  addFile(ProjectID: string, Url: string) : Observable<File> {
     let file: Object = {
-      UserID: UserID,
+      ProjectID: ProjectID,
       Url: Url,
     };
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -35,7 +35,7 @@ export class FileService {
     }
   }
   getFiles(UserID: string) : Observable<File[]>  {
-    return this._http.get(this.restfulAPI+'/fileList?where={"UserID":"'+UserID+'"}')
+    return this._http.get(this.restfulAPI+'/fileList?where={"ProjectID":"'+UserID+'","Url":{"$ne":"removed"}}')
       .map(this.filesData)
       .catch(this.handleError);
   }

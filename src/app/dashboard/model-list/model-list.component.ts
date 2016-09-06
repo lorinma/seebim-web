@@ -1,6 +1,8 @@
 import {Component, ElementRef, AfterViewInit} from '@angular/core';
 import {FileService} from "../file.service";
 import {File} from "../file";
+import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 declare var jQuery:any;
 declare var Dropbox:any;
@@ -14,15 +16,14 @@ declare var Dropbox:any;
   ]
 })
 export class ModelListComponent implements AfterViewInit {
+  private sub: Subscription;
   private options:Object;
   private dropbox_file:string;
   private errorMessage:string;
   private files:File[];
+  private project_id;
 
-  //change!!!!!!!!!!!!!!
-  private user_id='ling';
-
-  constructor(private el:ElementRef, private _service:FileService) {
+  constructor(private route: ActivatedRoute,private el:ElementRef, private _service:FileService) {
     this.options = {
       // Required. Called when a user selects an item in the Chooser.
       success: function(files) {
@@ -50,7 +51,10 @@ export class ModelListComponent implements AfterViewInit {
       // see File types below. By default, all extensions are allowed.
       extensions: ['.ifc']
     };
-    this.getFiles()
+    this.sub = this.route.params.subscribe(params => {
+      this.project_id=params['id'];
+      this.getFiles()
+    });
   }
   ngAfterViewInit(){
     let but=Dropbox.createChooseButton(this.options);
@@ -63,7 +67,7 @@ export class ModelListComponent implements AfterViewInit {
     file_url=jQuery(this.el.nativeElement).find('#_url').attr("href");
     let new_file:File;
     if(file_url){
-      this._service.addFile(this.user_id,file_url)
+      this._service.addFile(this.project_id,file_url)
         .subscribe(
           file => {
             new_file=file;
@@ -74,7 +78,7 @@ export class ModelListComponent implements AfterViewInit {
     }
   }
   getFiles() {
-    this._service.getFiles(this.user_id).subscribe(
+    this._service.getFiles(this.project_id).subscribe(
       res=>{
         this.files=res;
       },
