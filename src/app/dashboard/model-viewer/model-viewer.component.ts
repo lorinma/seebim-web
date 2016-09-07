@@ -7,6 +7,7 @@ import {Feature} from "../feature";
 
 declare var EmbeddedViewer:any;
 declare var jQuery:any;
+var math = require('mathjs');
 
 @Component({
   selector: 'app-model-viewer',
@@ -37,6 +38,12 @@ export class ModelViewerComponent implements OnInit {
   private user_features:Feature[];
   private guid:string;
   private formshow;
+  private upVector:Object; //up is the y axis
+  private lookVector:Object; //look at is the z axis
+  private xAxis:Object;
+  private viewerLocation:Object;
+
+
   constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService,private router:Router) {
     this.options = {
       hideLeftPanel: false,
@@ -85,7 +92,7 @@ export class ModelViewerComponent implements OnInit {
         this.viewer_data = {
           "domNode": this.ViewerNode,
           "title": "SeeBIM Viewer",
-          "noProperties": false,
+          "noProperties": true,
           "noLeft": false,
           "debug": true,
           "options": this.options,
@@ -188,5 +195,26 @@ export class ModelViewerComponent implements OnInit {
 
   add(){
     this.user_input_show=false;
+  }
+  scan(){
+    let self=this;
+    self.viewer.getCameraUpVect(function(up){
+      self.upVector=new Array();
+      self.upVector=[up['0'],up['1'],up['2']]
+      self.viewer.getCameraDir(function(camera) {
+        self.lookVector=new Array();
+        self.lookVector=[camera['0'],camera['1'],camera['2']]
+        self.viewer.getCameraLoc(function(loc){
+          self.viewerLocation=new Array();
+          self.viewerLocation=[loc['0'],loc['1'],loc['2']]
+          self.xAxis=new Array();
+          self.xAxis=math.cross(self.upVector,self.lookVector)
+          console.log(self.xAxis);
+          console.log(self.upVector);
+          console.log(self.lookVector);
+          console.log(self.viewerLocation);
+        });
+      });
+    });
   }
 }

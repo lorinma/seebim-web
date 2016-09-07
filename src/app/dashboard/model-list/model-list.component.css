@@ -10,3 +10,10 @@ img{
 .card {
   margin: 10px;
 }
+
+.query{
+  position: absolute;
+  right: 3%;
+  top: 6px;
+  z-index: 1;
+}

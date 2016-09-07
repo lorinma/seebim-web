@@ -63,6 +63,7 @@
       </md-tab>
     </md-tab-group>
   </md-sidenav>
+  <button *ngIf="viewer" md-raised-button color="accent" (click)="scan()" class="query">Scan the model</button>
   <div id="TrimbleConnectViewer"></div>
 <div class="invisible" id='guids'></div>
 <button (click)="getEntity();" class="invisible" id='selected_guids'></button>
