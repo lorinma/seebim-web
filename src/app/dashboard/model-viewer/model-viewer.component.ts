@@ -42,7 +42,8 @@ export class ModelViewerComponent implements OnInit {
   private lookVector:Object; //look at is the z axis
   private xAxis:Object;
   private viewerLocation:Object;
-
+  private scannerAPI="https://ls-emulator-lorinma.c9users.io/pcd/";
+  private scans:string[]
 
   constructor(private route: ActivatedRoute,private el:ElementRef,private _service:FileService,private router:Router) {
     this.options = {
@@ -128,11 +129,7 @@ export class ModelViewerComponent implements OnInit {
         var self=this;
         this.all_obj_ids=new Array();
         this.hidden_obj_ids=new Array();
-        // this.viewer.getObjectCount(function(count){
-        //   self.viewer.getObjectsRange(0,count,function(ids){
-        //     self.all_obj_ids=ids;
-        //   });
-        // });
+        this.getScans(this.file.TrimbleVersionID);
       },
       error => {
         this.router.navigate(['']);
@@ -196,7 +193,18 @@ export class ModelViewerComponent implements OnInit {
   add(){
     this.user_input_show=false;
   }
-  scan(){
+  getScans(TrimbleVersionID:string){
+    this.scans=new Array()
+    this._service.getScans(TrimbleVersionID).subscribe(
+      res=>{
+        this.scans=res;
+      },
+      error => {
+        this.errorMessage = <any>error
+      }
+    )
+  }
+  scan(resolution){
     let self=this;
     self.viewer.getCameraUpVect(function(up){
       self.upVector=new Array();
@@ -209,10 +217,22 @@ export class ModelViewerComponent implements OnInit {
           self.viewerLocation=[loc['0'],loc['1'],loc['2']]
           self.xAxis=new Array();
           self.xAxis=math.cross(self.upVector,self.lookVector)
-          console.log(self.xAxis);
-          console.log(self.upVector);
-          console.log(self.lookVector);
-          console.log(self.viewerLocation);
+          let scanner = {
+            'CS_X':self.xAxis,
+            'CS_Y':self.upVector,
+            'CS_Z':self.lookVector,
+            'CS_Origin':self.viewerLocation,
+            'TrimbleVersionID':self.file.TrimbleVersionID,
+            'Resolution':parseFloat(resolution)
+          }
+          self._service.scan(scanner).subscribe(
+              res=>{
+                self.scans.push(res)
+              },
+              error => {
+                this.errorMessage = <any>error
+              }
+            )
         });
       });
     });

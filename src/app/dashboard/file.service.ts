@@ -7,6 +7,7 @@ import {Feature} from "./feature";
 @Injectable()
 export class FileService {
   restfulAPI="https://seebim-api-lorinma.c9users.io";
+  scannerAPI="https://ls-emulator-lorinma.c9users.io";
   constructor(private _http:Http) { }
   handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
@@ -95,5 +96,30 @@ export class FileService {
         return feature
       }
     );
+  }
+
+  scan(scanner: {CS_X: Object; CS_Y: Object; CS_Z: Object; CS_Origin: Object; TrimbleVersionID: string; Resolution: number}) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.scannerAPI+'/scanner',JSON.stringify(scanner),options)
+      .map(this.scanData)
+      .catch(this.handleError);
+  }
+  private scanData(res: Response){
+    return res.json()['_id'];
+  }
+  private scansData(res: Response){
+    let items = res.json()['_items'];
+    return items.map(
+      item=>{
+        let result=item["_id"];
+        return result
+      }
+    )
+  }
+  getScans(TrimbleVersionID: string) {
+    return this._http.get(this.scannerAPI+'/scanner?where={"TrimbleVersionID":"'+TrimbleVersionID+'"}')
+      .map(this.scansData)
+      .catch(this.handleError);
   }
 }

@@ -63,7 +63,39 @@
       </md-tab>
     </md-tab-group>
   </md-sidenav>
-  <button *ngIf="viewer" md-raised-button color="accent" (click)="scan()" class="query">Scan the model</button>
+  <md-sidenav #work align="end" style="width:30%">
+    <md-tab-group>
+      <md-tab>
+        <template md-tab-label>
+          Semantic Enrichment
+        </template>
+        <template md-tab-content>
+          test
+        </template>
+      </md-tab>
+      <md-tab>
+        <template md-tab-label>
+          Laser Scanner Emulator
+        </template>
+        <template md-tab-content>
+          <md-list>
+            <md-list-item>
+              <md-input #resolution placeholder='Scanning angular spacing (degree)' style="width: 50%" value="0.1"></md-input>
+            </md-list-item>
+            <md-list-item>
+              <button md-raised-button color="accent" (click)="scan(resolution.value)">Scan</button>
+            </md-list-item>
+          </md-list>
+          <md-list>
+            <md-list-item *ngFor="let scan of scans,let i = index">
+              <a href={{this.scannerAPI}}{{scan}} target="_blank"><button md-button color="primary">View Point Cloud {{i+1}}</button></a>
+            </md-list-item>
+          </md-list>
+        </template>
+      </md-tab>
+    </md-tab-group>
+  </md-sidenav>
+  <button *ngIf="viewer" md-raised-button color="accent" (click)="work.open()" class="query">Workspace</button>
   <div id="TrimbleConnectViewer"></div>
 <div class="invisible" id='guids'></div>
 <button (click)="getEntity();" class="invisible" id='selected_guids'></button>

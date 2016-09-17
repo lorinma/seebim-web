@@ -9,7 +9,7 @@
 
 .query{
   position: absolute;
-  right: 3%;
+  left: 12%;
   top: 6px;
   z-index: 1;
 }
