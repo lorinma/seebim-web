@@ -4,25 +4,26 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-
 import { appRoutingProviders, routing } from "./app.routing";
-import { ProjectListComponent } from './dashboard/project-list/project-list.component';
 
-// import {DashboardModule} from "./dashboard/dashboard.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
+
+// import { DashboardComponent } from './dashboard/dashboard.component';
+// import { ProjectListComponent } from './dashboard/project-list/project-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    ProjectListComponent,
+    // DashboardComponent,
+    // ProjectListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    // DashboardModule,
+    DashboardModule,
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

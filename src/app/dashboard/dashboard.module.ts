@@ -12,29 +12,30 @@ import {MdTabsModule} from "@angular2-material/tabs";
 import {MdInputModule} from "@angular2-material/input";
 
 import {DashboardComponent} from "./dashboard.component";
-import {ProjectListComponent} from "./project-list/project-list.component";
+import {ProjectListComponent} from "./project-list/project-list.component"; 
 // import {ModelListComponent} from "./model-list/model-list.component";
 // import {ModelViewerComponent} from "./model-viewer/model-viewer.component";
 
-// import {dashboardRouting} from "./dashboard.routing";
+import { dashboardRouting } from "./dashboard.routing";
 
 @NgModule({
   declarations: [
     DashboardComponent
-    // , ModelListComponent, ModelViewerComponent, ProjectListComponent
+    // , ModelListComponent, ModelViewerComponent
+    , ProjectListComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     // dashboardRouting,
-    // MdCardModule,
-    // MdToolbarModule,
-    // MdButtonModule,
-    // MdSidenavModule,
-    // MdListModule,
-    // MdIconModule,
-    // MdTabsModule,
-    // MdInputModule,
+    MdCardModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdSidenavModule,
+    MdListModule,
+    MdIconModule,
+    MdTabsModule,
+    MdInputModule,
   ],
   providers: [
   ],
