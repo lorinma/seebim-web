@@ -8,15 +8,9 @@ import { appRoutingProviders, routing } from "./app.routing";
 
 import { DashboardModule } from "./dashboard/dashboard.module";
 
-// import { DashboardComponent } from './dashboard/dashboard.component';
-// import { ProjectListComponent } from './dashboard/project-list/project-list.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
-    // DashboardComponent,
-    // ProjectListComponent,
   ],
   imports: [
     BrowserModule,

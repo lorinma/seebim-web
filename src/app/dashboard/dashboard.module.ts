@@ -27,7 +27,7 @@ import { dashboardRouting } from "./dashboard.routing";
   imports: [
     CommonModule,
     FormsModule,
-    // dashboardRouting,
+    dashboardRouting,
     MdCardModule,
     MdToolbarModule,
     MdButtonModule,

@@ -1,9 +1,9 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from "./dashboard/dashboard.component";
-
+import { AppComponent } from './app.component';
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: AppComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 export const appRoutingProviders: any[] = [
