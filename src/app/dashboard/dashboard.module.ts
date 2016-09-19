@@ -13,16 +13,17 @@ import {MdInputModule} from "@angular2-material/input";
 
 import {DashboardComponent} from "./dashboard.component";
 import {ProjectListComponent} from "./project-list/project-list.component"; 
-// import {ModelListComponent} from "./model-list/model-list.component";
 // import {ModelViewerComponent} from "./model-viewer/model-viewer.component";
 
 import { dashboardRouting } from "./dashboard.routing";
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent
-    // , ModelListComponent, ModelViewerComponent
-    , ProjectListComponent
+    DashboardComponent, 
+    ProjectListComponent, 
+    ProjectComponent,
+    // ModelViewerComponent
   ],
   imports: [
     CommonModule,
