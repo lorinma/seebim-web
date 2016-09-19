@@ -5,6 +5,9 @@ import {MdIcon, MdIconRegistry} from  '@angular2-material/icon/icon';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
+  providers: [
+    MdIconRegistry
+  ]
 })
 export class DashboardComponent implements OnInit {
   user={
