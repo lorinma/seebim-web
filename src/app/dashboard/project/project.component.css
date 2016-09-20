@@ -1,0 +1,19 @@
+img{
+  width: 300px;
+}
+
+.card-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.card {
+  margin: 10px;
+}
+
+.query{
+  position: absolute;
+  right: 3%;
+  top: 6px;
+  z-index: 1;
+}
