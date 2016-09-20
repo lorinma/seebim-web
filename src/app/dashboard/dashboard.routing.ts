@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { DashboardComponent } from "./dashboard.component";
 import { ProjectListComponent } from "./project-list/project-list.component";
 import {ProjectComponent} from "./project/project.component";
+import {ModelComponent} from "./model/model.component";
 const dashboardRoutes: Routes = [
   {
     path: 'dashboard',
@@ -10,7 +11,7 @@ const dashboardRoutes: Routes = [
     children: [
       { path: '', component: ProjectListComponent },
       { path: 'project/:id', component: ProjectComponent },
-    //   { path: 'model/:id', component: ModelViewerComponent }
+      { path: 'model/:id', component: ModelComponent }
     ]
   },
 ];

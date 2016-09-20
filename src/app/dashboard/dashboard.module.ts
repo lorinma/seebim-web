@@ -17,12 +17,13 @@ import {ProjectListComponent} from "./project-list/project-list.component";
 
 import { dashboardRouting } from "./dashboard.routing";
 import { ProjectComponent } from './project/project.component';
+import { ModelComponent } from './model/model.component';
 
 @NgModule({
   declarations: [
     DashboardComponent, 
     ProjectListComponent, 
-    ProjectComponent,
+    ProjectComponent, ModelComponent,
     // ModelViewerComponent
   ],
   imports: [
